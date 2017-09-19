@@ -3,9 +3,9 @@ INC_DIR = include
 all: utSort
 utSort: main.o Shapes.o Media.o
 ifeq (${OS}, Windows_NT)
-	g++ -o utSort main.o Shapes.o Media.o -lgtest
+	g++ -o hw1 main.o Shapes.o Media.o -lgtest
 else
-	g++ -o utSort main.o Shapes.o Media.o -lgtest -lpthread
+	g++ -o hw1 main.o Shapes.o Media.o -lgtest -lpthread
 endif
 	
 main.o: main.cpp utSort.h
@@ -19,5 +19,5 @@ clean:
 ifeq (${OS}, Windows_NT)
 	del *.o *.exe
 else
-	rm -f *.o exp
+	rm -f *.o hw1
 endif
