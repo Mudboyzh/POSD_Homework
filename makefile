@@ -14,6 +14,11 @@ all: utTerm
 # 		g++ -o utVariable mainVariable.o -lgtest -lpthread
 # mainVariable.o: mainVariable.cpp utVariable.h variable.h
 # 		g++ -std=c++11 -c mainVariable.cpp
+ifeq (${OS}, Windows_NT)
+	g++ -o hw2 mainTerm.o -lgtest
+else
+	g++ -o hw2 mainTerm.o -lgtest -lpthread
+endif
 
 utTerm: mainTerm.o 
 	g++ -o hw2 mainTerm.o -lgtest -lpthread
@@ -42,7 +47,9 @@ mainTerm.o: mainTerm.cpp utTerm.h number.h atom.h variable.h
 #g++ -std=c++11 -c var.cpp
 #list.o: list.h list.cpp term.h var.h
 #	g++ -std=c++11 -c list.cpp
-clean:
-	rm -f *.o madRace utAtom utVariable utTerm
-stat:
-	wc *.h *.cpp
+clean:	
+ifeq (${OS}, Windows_NT)
+	del *.o *.exe
+else
+	rm -f *.o hw2
+endif
