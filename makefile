@@ -14,14 +14,14 @@ all: utTerm
 # 		g++ -o utVariable mainVariable.o -lgtest -lpthread
 # mainVariable.o: mainVariable.cpp utVariable.h variable.h
 # 		g++ -std=c++11 -c mainVariable.cpp
+
+utTerm: mainTerm.o 
 ifeq (${OS}, Windows_NT)
 	g++ -o hw2 mainTerm.o -lgtest
 else
 	g++ -o hw2 mainTerm.o -lgtest -lpthread
 endif
 
-utTerm: mainTerm.o 
-	g++ -o hw2 mainTerm.o -lgtest -lpthread
 mainTerm.o: mainTerm.cpp utTerm.h number.h atom.h variable.h 
 	g++ -std=c++11 -c mainTerm.cpp
 
