@@ -2,26 +2,44 @@
 #define VARIABLE_H
 
 #include <string>
-#include "atom.h"
+
 using std::string;
 
-class Variable{
-public:
-  Variable(string s):_symbol(s){}
-  string const _symbol;
-  string value(){ return _value; }
-  bool match( Atom atom ){
-    bool ret = _assignable;
-    if(_assignable){
-      _value = atom._symbol ;
-      _assignable = false;
-    }
-    return ret;
-  }
 
-private:
-  string _value;
-  bool _assignable = true;
+class Variable: public Token {
+ public:
+ 	Variable( string s ) {
+ 		_symbol = s ;
+ 	}
+
+ 	string value() {
+ 		return _value;
+ 	}
+
+ 	string symbol() {
+ 		return _symbol;
+ 	}
+
+ 	string className() {
+      return _className ;
+    }
+
+ 	bool match( Token & t ) {
+ 		// bool ret = isAssignable ;
+ 		if ( isAssignable ) {
+ 			_value = t.value();
+ 			isAssignable = false ;
+ 			return true ;
+ 		}
+ 		else {
+ 			return this->_value == t.value();
+ 		}
+ 	}
+ private:
+ 	string _symbol;
+ 	string _value;
+ 	string const _className = "Variable";
+ 	bool isAssignable = true ;
 };
 
 #endif
