@@ -2,6 +2,7 @@
 #define ATOM_H
 
 #include <string>
+#include "token.h"
 
 using std::string;
 

@@ -2,7 +2,7 @@
 #define VARIABLE_H
 
 #include <string>
-
+#include "token.h"
 using std::string;
 
 
