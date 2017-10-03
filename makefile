@@ -23,7 +23,7 @@ else
 endif
 
 mainTerm.o: mainTerm.cpp utTerm.h number.h atom.h variable.h 
-	g++ -std=c++11 -c mainTerm.cpp
+	g++ -std=gun++0x -c mainTerm.cpp
 
 #exp: mainExp.o
 #	g++ -o exp mainExp.o -lgtest -lpthread
