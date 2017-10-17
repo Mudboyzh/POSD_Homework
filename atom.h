@@ -2,43 +2,40 @@
 #define ATOM_H
 
 #include <string>
-#include "token.h"
 
 using std::string;
 
-class Atom: public Token {
-  public:
-  	Atom(string s) {
-  		_value = s ;
-  		_symbol = s ;
-  	}
 
-  	string value() {
-  		return _value ;
-  	}
+class Term{
 
-  	string symbol() {
-  		return _symbol;
-  	}
+public:
+  virtual string symbol() const= 0;
 
-  	string className() {
-      	return _className ;
-    }
+  virtual string value() const{
+    return symbol();
+  };
+
+  virtual string className() const = 0 ;
+
+  virtual bool match(Term & term) {
+    return symbol() == term.value();
+  }
 
 
-  	bool match( Token &t ) {
-  		string tokenType = t.className();
-      	if ( tokenType == "Variable" ) {
-        Atom temp(this->_value); // temp equal this object
-        	return t.match( temp );
-      	}
-    	return this->value() == t.value();
-  	}
-
-  private:
-  	string _symbol;
-  	string const _className = "Atom";
-  	string _value;
 };
+
+class Atom : public Term{
+public:
+  Atom (string s):_symbol(s) {}
+
+  string symbol() const{
+    return _symbol;
+  }
+  string className() const{
+    return "Atom";
+  }
+  string _symbol;
+};
+
 
 #endif

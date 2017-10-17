@@ -2,42 +2,39 @@
 #define NUMBER_H
 
 #include <string>
-#include "token.h"
+#include "atom.h"
 using std::string;
 
-class Number: public Token {
+class Number: public Term {
   public:
-    Number(int num) {
-      _symbol = std::to_string(num);
-      _value = num;
+    Number(double num):_value(num) {
+      _symbol = std::to_string(num) ;
+      for(int i = _symbol.length()-1; i > 0; i-- ) {
+        // remove tail zero or dot. example: 2.0, 2.12000
+        if (_symbol[i] == '0' || _symbol[i] == '.') _symbol.pop_back();
+        else break;
+      } // for
     }
 
-    string value() {
-      return std::to_string( _value);
-    }
-
-    string symbol() {
+    string symbol() const{
       return _symbol;
     }
 
-    string className() {
-      return _className ;
+    string className() const{
+      return "Number" ;
     }
 
-    bool match( Token &t ) {
-      string tokenType = t.className();
-      if ( tokenType == "Variable" ) {
-        Number temp(this->_value); // temp equal this object
-        return t.match( temp );
+    bool match( Term &term ) {
+      if ( term.className() == "Variable" ) {
+        Number temp(_value);
+        return term.match(temp);
       }
 
-      return  this->value() == t.value();
+      return  this->value() == term.value();
     } 
   private:
-    string const _className = "Number" ;
     string _symbol;
-    int _value;
-
+    double _value;
 };
 
 #endif

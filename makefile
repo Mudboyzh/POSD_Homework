@@ -1,29 +1,19 @@
-all: utTerm
+all: madRace utAtom utVariable
 
-# madRace: mainMadRace.o
-# 	g++ -o madRace mainMadRace.o -lgtest -lpthread
-# mainMadRace.o: mainMadRace.cpp madRace.h utMadRace.h
-# 	g++ -std=c++11 -c mainMadRace.cpp
+madRace: mainMadRace.o
+	g++ -o madRace mainMadRace.o -lgtest -lpthread
+mainMadRace.o: mainMadRace.cpp madRace.h utMadRace.h
+	g++ -std=c++11 -c mainMadRace.cpp
 
-# utAtom: mainAtom.o
-# 	g++ -o utAtom mainAtom.o -lgtest -lpthread
-# mainAtom.o: mainAtom.cpp utAtom.h atom.h
-# 	g++ -std=c++11 -c mainAtom.cpp
+utAtom: mainAtom.o
+	g++ -o utAtom mainAtom.o -lgtest -lpthread
+mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
+	g++ -std=c++11 -c mainAtom.cpp
 
-# utVariable: mainVariable.o
-# 		g++ -o utVariable mainVariable.o -lgtest -lpthread
-# mainVariable.o: mainVariable.cpp utVariable.h variable.h
-# 		g++ -std=c++11 -c mainVariable.cpp
-
-utTerm: mainTerm.o 
-ifeq (${OS}, Windows_NT)
-	g++ -o hw2 mainTerm.o -lgtest
-else
-	g++ -o hw2 mainTerm.o -lgtest -lpthread
-endif
-
-mainTerm.o: mainTerm.cpp utTerm.h number.h atom.h variable.h 
-	g++ -std=gnu++0x -c mainTerm.cpp
+utVariable: mainVariable.o
+		g++ -o utVariable mainVariable.o  -lgtest -lpthread
+mainVariable.o: mainVariable.cpp utVariable.h variable.h
+		g++ -std=c++11 -c mainVariable.cpp
 
 #exp: mainExp.o
 #	g++ -o exp mainExp.o -lgtest -lpthread
@@ -47,9 +37,13 @@ mainTerm.o: mainTerm.cpp utTerm.h number.h atom.h variable.h
 #g++ -std=c++11 -c var.cpp
 #list.o: list.h list.cpp term.h var.h
 #	g++ -std=c++11 -c list.cpp
-clean:	
-ifeq (${OS}, Windows_NT)
-	del *.o *.exe
-else
-	rm -f *.o hw2
-endif
+clean:
+	rm -f *.o madRace utAtom utVariable
+stat:
+	wc *.h *.cpp
+
+test:
+	make clean
+	make utAtom
+	./utAtom
+

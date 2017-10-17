@@ -2,44 +2,54 @@
 #define VARIABLE_H
 
 #include <string>
-#include "token.h"
+#include <vector>
+#include "atom.h"
 using std::string;
 
+class Variable: public Term{
+public:
+  Variable(string s):_symbol(s){}
+  string const _symbol;
+  string _value;
+  bool _assignable = true;
+  std::vector< Variable * >ref ;
 
-class Variable: public Token {
- public:
- 	Variable( string s ) {
- 		_symbol = s ;
- 	}
+  string value() const { return _value; }
+  string symbol() const { return _symbol; }
+  string className() const { return "Variable"; }
 
- 	string value() {
- 		return _value;
- 	}
+  bool match( Term & term ){
+    bool ret = _assignable;
+    if (_assignable) {
+      _value = term.value() ;
+      _assignable = false;
 
- 	string symbol() {
- 		return _symbol;
- 	}
+      if ( ref.size() != 0 ) {
+        int refSize = ref.size();
+        for(int i = 0; i < refSize ; i++) {
+          ref[i]->match(term);
+        }
+      }
+    } // if assignable = true
+    return ret;
+  } // match with Term
 
- 	string className() {
-      return _className ;
+  bool match( Variable & var ) {
+    bool ret = _assignable;
+    if (_assignable) {
+      if ( var._assignable ){ 
+        ref.push_back( &var ); 
+        var.ref.push_back(this);
+        // 互相紀錄對方
+      }
+      else {
+        _value = var.value();
+        _assignable = false;
+      }
     }
+    return ret;
+  } // match with Variable
 
- 	bool match( Token & t ) {
- 		// bool ret = isAssignable ;
- 		if ( isAssignable ) {
- 			_value = t.value();
- 			isAssignable = false ;
- 			return true ;
- 		}
- 		else {
- 			return this->_value == t.value();
- 		}
- 	}
- private:
- 	string _symbol;
- 	string _value;
- 	string const _className = "Variable";
- 	bool isAssignable = true ;
 };
 
 #endif
