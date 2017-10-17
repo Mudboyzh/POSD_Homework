@@ -1,12 +1,7 @@
-all: madRace utAtom utVariable
-
-madRace: mainMadRace.o
-	g++ -o madRace mainMadRace.o -lgtest -lpthread
-mainMadRace.o: mainMadRace.cpp madRace.h utMadRace.h
-	g++ -std=c++11 -c mainMadRace.cpp
+all: utAtom
 
 utAtom: mainAtom.o
-	g++ -o utAtom mainAtom.o -lgtest -lpthread
+	g++ -o hw3 mainAtom.o -lgtest -lpthread
 mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
 	g++ -std=c++11 -c mainAtom.cpp
 
@@ -44,6 +39,6 @@ stat:
 
 test:
 	make clean
-	make utAtom
-	./utAtom
+	make 
+	./hw3
 
