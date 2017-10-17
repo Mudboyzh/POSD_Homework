@@ -30,7 +30,7 @@ class Number: public Term {
         return term.match(temp);
       }
 
-      return  this->value() == term.value();
+      return  value() == term.value();
     } 
   private:
     string _symbol;

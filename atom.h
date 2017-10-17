@@ -36,6 +36,13 @@ public:
   }
   string _symbol;
 
+  bool match(Term & term) {
+    if ( term.className() == "Variable") {
+      Atom temp(symbol());
+      return term.match(temp);
+    }
+    else return symbol() == term.symbol();
+  }
 };
 
 

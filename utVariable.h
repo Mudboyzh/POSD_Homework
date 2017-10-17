@@ -11,8 +11,10 @@ TEST(Variable, constructor){
 
 TEST(Variable , matching){
   Atom tom("tom");
+  Atom jerry("jerry");
   Variable X("X");
   ASSERT_TRUE(X.match(tom));
+  ASSERT_FALSE(X.match(jerry));
   ASSERT_EQ( "tom", X.value());
 }
 TEST (Variable , haveValue){
@@ -28,7 +30,7 @@ TEST (Variable , haveValue){
 TEST(Variable , numE_to_varX){
   Number num(2.7182);
   Variable x("X");
-  x.match(num);
+  ASSERT_TRUE(x.match(num));
   ASSERT_EQ("2.7182", x.value());
 }
 
