@@ -14,7 +14,7 @@ TEST(Variable , matching){
   Atom jerry("jerry");
   Variable X("X");
   ASSERT_TRUE(X.match(tom));
-  ASSERT_FALSE(X.match(jerry));
+  ASSERT_TRUE(X.match(tom));
   ASSERT_EQ( "tom", X.value());
 }
 TEST (Variable , haveValue){

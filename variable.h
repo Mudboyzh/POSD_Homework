@@ -34,6 +34,9 @@ public:
         }
       }
     } // if assignable = true
+    else {
+      ret = ( _value == term.value());
+    }
     return ret;
   } // match with Term
 
