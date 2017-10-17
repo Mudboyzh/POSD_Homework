@@ -14,7 +14,10 @@ public:
   bool _assignable = true;
   std::vector< Variable * >ref ;
 
-  string value() const { return _value; }
+  string value() const { 
+    if (_assignable ) return _symbol;
+    return _value; 
+  }
   string symbol() const { return _symbol; }
   string className() const { return "Variable"; }
 

@@ -18,7 +18,7 @@ public:
   virtual string className() const = 0 ;
 
   virtual bool match(Term & term) {
-    return symbol() == term.value();
+    return symbol() == term.symbol();
   }
 
 
@@ -35,6 +35,7 @@ public:
     return "Atom";
   }
   string _symbol;
+
 };
 
 
