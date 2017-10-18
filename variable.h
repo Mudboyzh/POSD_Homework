@@ -10,12 +10,12 @@ class Variable: public Term{
 public:
   Variable(string s):_symbol(s){}
   string const _symbol;
-  string _value;
+  string _value ;
   bool _assignable = true;
   std::vector< Variable * >ref ;
 
   string value() const { 
-    if (_assignable ) return _symbol;
+    if (_assignable && _value.empty() ) return _symbol;
     return _value; 
   }
   string symbol() const { return _symbol; }
@@ -47,6 +47,8 @@ public:
         ref.push_back( &var ); 
         var.ref.push_back(this);
         // 互相紀錄對方
+        _value = var.value();
+        var._value = value();
       }
       else {
         _value = var.value();

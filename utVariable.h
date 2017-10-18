@@ -52,6 +52,7 @@ TEST (Variable, varY_to_varX_and_num1_to_varY) {
   Variable x("X");
   Variable y("Y");
   x.match(y);
+  ASSERT_EQ("Y",x.value());
   y.match(num1);
   ASSERT_EQ("1", x.value());
 }
@@ -132,9 +133,9 @@ TEST (Variable, Struct2) {
   Variable x("X");
   Variable y("Y");
   Atom teddy("teddy");
-  x.match(teddy);
   std::vector<Term *> v = {&x};
   Struct s(Atom("s"), v);
+  x.match(teddy);
   y.match(s);
   ASSERT_EQ("Y", y.symbol());
   ASSERT_EQ("s(teddy)", y.value());
