@@ -1,34 +1,33 @@
-INC_DIR = include
+all: utAtom
 
-all: hw3
-
-hw3: main.o term.o atom.o number.o variable.o struct.o
+utAtom: mainAtom.o
 ifeq (${OS}, Windows_NT)
-	g++ -o hw3 main.o term.o atom.o number.o variable.o struct.o -lgtest
+	g++ -o hw3 mainAtom.o -lgtest 
 else
-	g++ -o hw3 main.o term.o atom.o number.o variable.o struct.o -lgtest -lpthread
+	g++ -o hw3 mainAtom.o -lgtest -lpthread
 endif
-	
-main.o: main.cpp utVariable.h utStruct.h
-	g++ -std=gnu++0x -c main.cpp
-term.o: term.cpp term.h
-	g++ -std=gnu++0x -c term.cpp
-
-atom.o: atom.cpp atom.h
-	g++ -std=gnu++0x -c atom.cpp
-
-number.o: number.cpp number.h
-	g++ -std=gnu++0x -c number.cpp
-
-variable.o: variable.cpp variable.h
-	g++ -std=gnu++0x -c variable.cpp
-
-struct.o: struct.h
-	g++ -std=gnu++0x -c struct.cpp
-
-clean:	
-ifeq (${OS}, Windows_NT)
-	del *.o *.exe
+mainAtom.o: mainAtom.cpp atom.h utStruct.h struct.h
+ifeq (${OS}, Windows_NT)	
+	g++ -std=gnu++0x -c mainAtom.cpp
 else
-	rm -f *.o hw3
+	g++ -std=c++0x -c mainAtom.cpp
 endif
+utVariable: mainVariable.o
+		g++ -o utVariable mainVariable.o  -lgtest -lpthread
+mainVariable.o: mainVariable.cpp utVariable.h variable.h
+ifeq (${OS}, Windows_NT)	
+	g++ -std=gnu++0x -c mainVariable.cpp
+else
+	g++ -std=c++0x -c mainVariable.cpp
+endif
+
+clean:
+	rm -f *.o madRace utAtom utVariable
+stat:
+	wc *.h *.cpp
+
+test:
+	make clean
+	make 
+	./hw3
+
