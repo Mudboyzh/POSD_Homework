@@ -1,40 +1,33 @@
-#ifndef NUMBER_H
-#define NUMBER_H
+#ifndef NUMBER_H_INCLUDED
+#define NUMBER_H_INCLUDED
 
 #include <string>
-#include "atom.h"
+#include "term.h"
 using std::string;
 
-class Number: public Term {
-  public:
-    Number(double num):_value(num) {
-      _symbol = std::to_string(num) ;
-      for(int i = _symbol.length()-1; i > 0; i-- ) {
-        // remove tail zero or dot. example: 2.0, 2.12000
-        if (_symbol[i] == '0' || _symbol[i] == '.') _symbol.pop_back();
-        else break;
-      } // for
-    }
+class Atom;
+class Variable;
+class Number : public Term
+{
+public:
+  Number(double n);
 
-    string symbol() const{
-      return _symbol;
-    }
+  // string value() const;
+  string symbol() const;
+  double num();
 
-    string className() const{
-      return "Number" ;
-    }
+  bool match(Term &term);
+  // bool match(Number number);
+  // bool match(Atom atom);
+  // bool match(Variable &variable);
 
-    bool match( Term &term ) {
-      if ( term.className() == "Variable" ) {
-        Number temp(_value);
-        return term.match(temp);
-      }
-
-      return  value() == term.value();
-    } 
-  private:
-    string _symbol;
-    double _value;
+private:
+  // string _value;
+  string text;
+  string text2;
+  string _symbol;
+  bool isVariable = true;
+  double _number;
 };
 
 #endif
