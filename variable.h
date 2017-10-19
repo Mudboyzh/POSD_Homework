@@ -10,15 +10,17 @@ class Variable: public Term{
 public:
   Variable(string s):_symbol(s){}
   string const _symbol;
-  string _value ;
+  // string _value ;
+  Term * _value ;
   bool _assignable = true;
   std::vector< Variable * >ref ;
    
 
 
   string value() const { 
-    if (_assignable && _value.empty() ) return _symbol;
-    return _value; 
+    if (_assignable && _value == NULL ) return _symbol;
+    else if ( _assignable && _value != NULL) return _value->symbol();
+    return _value->value(); 
   }
   string symbol() const { return _symbol; }
   string className() const { return "Variable"; }
@@ -26,7 +28,7 @@ public:
   bool match( Term & term ){
     bool ret = _assignable;
     if (_assignable) {
-      _value = term.value() ;
+      _value = &term;
       _assignable = false;
       // if (term.className() == "Struct") {
       //   term.ref.push_back(this);
@@ -39,7 +41,7 @@ public:
       }
     } // if assignable = true
     else {
-      ret = ( _value == term.value());
+      ret = ( _value->value() == term.value());
     }
     return ret;
   } // match with Term
@@ -51,11 +53,11 @@ public:
         ref.push_back( &var ); 
         var.ref.push_back(this);
         // 互相紀錄對方
-        _value = var.value();
-        var._value = value();
+        _value = &var;
+        var._value = this;
       }
       else {
-        _value = var.value();
+        _value = &var;
         _assignable = false;
       }
     }
