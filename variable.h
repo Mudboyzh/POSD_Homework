@@ -11,7 +11,7 @@ public:
   Variable(string s):_symbol(s){}
   string const _symbol;
   // string _value ;
-  Term * _value ;
+  Term * _value = NULL;
   bool _assignable = true;
   std::vector< Variable * >ref ;
    

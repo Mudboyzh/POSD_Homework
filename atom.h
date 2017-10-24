@@ -26,6 +26,8 @@ public:
 
 class Atom : public Term{
 public:
+  string _symbol;
+  
   Atom (string s):_symbol(s) {}
 
   string symbol() const{
@@ -34,7 +36,6 @@ public:
   string className() const{
     return "Atom";
   }
-  string _symbol;
 
   bool match(Term & term) {
     if ( term.className() == "Variable") {
