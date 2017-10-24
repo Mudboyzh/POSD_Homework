@@ -172,50 +172,75 @@ TEST(List, matchVarinListToAtomShouldSucceed) {
 // ?- [first, second, third] = [H|T].
 // H = first, T = [second, third].
 TEST(List, headAndTailMatching1) {
-  // Atom f("first"), s("second"), t("third");
-  // vector<Term *> args = {&f, &s, &t};
-  // List l(args);
+  Atom f("first"), s("second"), t("third");
+  vector<Term *> args = {&f, &s, &t};
+  List l(args);
 
-  // EXPECT_EQ(string("first"), l.head()->symbol());
-  // EXPECT_EQ(string("[second, third]"), l.tail()->value());
+  EXPECT_EQ(string("first"), l.head()->symbol());
+  EXPECT_EQ(string("[second, third]"), l.tail()->value());
 }
 
 // Example:
 // ?- [first, second, third] = [first, H|T].
 // H = second, T = [third].
 TEST(List, headAndTailMatching2) {
-  // Atom f("first"), s("second"), t("third");
-  // vector<Term *> args = {&f, &s, &t};
-  // List l(args);
+  Atom f("first"), s("second"), t("third");
+  vector<Term *> args = {&f, &s, &t};
+  List l(args);
 
-  // EXPECT_EQ(string("second"), l.tail()->head()->value());
-  // EXPECT_EQ(string("[third]"), l.tail()->tail()->value());
+  EXPECT_EQ(string("second"), l.tail()->head()->value());
+  EXPECT_EQ(string("[third]"), l.tail()->tail()->value());
 }
 
 // ?- [[first], second, third] = [H|T].
 // H = [first], T = [second, third].
 TEST(List, headAndTailMatching3) {
+  Atom f("first"), s("second"), t("third");
+  vector<Term *> v = {&f};
+  List listA(v);
+  vector<Term *> args = { &listA, &s, &t};
+  List listB(args);
+
+  ASSERT_EQ(string("[first]"), listB.head()->value());
+  ASSERT_EQ(string("[second, third]"), listB.tail()->value());
 
 }
 
 // ?- [first, second, third] = [first, second, H|T].
 // H = third, T = [].
 TEST(List, headAndTailMatching4) {
+  Atom f("first"), s("second"), t("third");
+  vector<Term *> args = {&f, &s, &t};
+  List l(args);
 
+  EXPECT_EQ(string("third"), l.tail()->tail()->head()->value());
+  EXPECT_EQ(string("[]"), l.tail()->tail()->tail()->value());
 }
  
 // Given there is a empty list
 // When client still want to get the head of list
 // Then it should throw a string: "Accessing head in an empty list" as an exception.
 TEST (List, emptyExecptionOfHead) {
-
+  List listEmpty;
+  try {
+    listEmpty.head()->value();
+  }
+  catch (const char* errorMsg){
+    ASSERT_EQ("Accessing head in an empty list", errorMsg);
+  }
 }
 
 // Given there is a empty list
 // When client still want to get the head of list
 // Then it should throw a string: "Accessing tail in an empty list" as an exception.
 TEST (List, emptyExecptionOfTail) {
-
+  List listEmpty;
+  try {
+    listEmpty.tail()->value();
+  }
+  catch (const char* errorMsg){
+    ASSERT_EQ("Accessing tail in an empty list", errorMsg);
+  }
 }
 
 
