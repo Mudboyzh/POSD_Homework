@@ -6,7 +6,7 @@ ifeq (${OS}, Windows_NT)
 else
 	g++ -o hw4 mainAtom.o -lgtest -lpthread
 endif
-mainAtom.o: mainAtom.cpp atom.h utStruct.h struct.h list.h
+mainAtom.o: mainAtom.cpp atom.h utStruct.h struct.h list.h variable.h number.h
 ifeq (${OS}, Windows_NT)	
 	g++ -std=gnu++0x -c mainAtom.cpp
 else

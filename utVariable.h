@@ -30,6 +30,9 @@ TEST (Variable , haveValue){
 TEST(Variable , numE_to_varX){
   Number num(2.7182);
   Variable x("X");
+  ASSERT_EQ("X", x.value());
+  ASSERT_EQ("X", x.symbol());
+  
   ASSERT_TRUE(x.match(num));
   ASSERT_EQ("2.7182", x.value());
   ASSERT_EQ("2.7182", num.symbol());
