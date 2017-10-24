@@ -9,11 +9,16 @@ class Number: public Term {
   public:
     Number(double num):_value(num) {
       _symbol = std::to_string(num) ;
-      for(int i = _symbol.length()-1; i > 0; i-- ) {
-        // remove tail zero or dot. example: 2.0, 2.12000
-        if (_symbol[i] == '0' || _symbol[i] == '.') _symbol.pop_back();
-        else break;
-      } // for
+      if ( _symbol.find(".") != string::npos ) {
+        for(int i = _symbol.length()-1; i > 0; i-- ) {
+          // remove tail zero or dot. example: 2.0, 2.12000
+          if (_symbol[i] == '0' ) _symbol.pop_back();
+          else {
+            if ( _symbol[i] == '.') _symbol.pop_back();
+            break;
+          }
+        } // for
+      }
     }
 
     string symbol() const{

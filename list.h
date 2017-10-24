@@ -11,22 +11,20 @@ public:
   List () {
 
   }
-  List (vector<Term *> const & elements):_elements(elements){
-  	// std::sort(_elements.begin(), _elements.end(), elementsSort);
-  }
+  List (vector<Term *> const & elements):_elements(elements){}
 
   static bool elementsSort( const Term * first, const Term * second ) {
   	return first->value() < second->value();
   }
 
   Term * head() const {
-    // if ( _elements.size() == 0 )  throw "Accessing head in an empty list";
+    if ( _elements.size() == 0 )  throw "Accessing head in an empty list";
     return _elements[0] ;
   }
 
   List * tail() const {
     List * new_List = new List();
-    // if ( _elements.size() == 0 ) throw "Accessing tail in an empty list";
+    if ( _elements.size() == 0 ) throw "Accessing tail in an empty list";
 
     new_List->_elements.assign(_elements.begin()+1,_elements.end());
     return new_List ;
