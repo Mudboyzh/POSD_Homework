@@ -8,7 +8,7 @@ using std::string;
 
 class Variable: public Term{
 public:
-  Variable(string s):_symbol(s){}
+  Variable(string s):_symbol(s){ std::cout << "Var symbol:[" << _symbol << "]\n"; }
   string const _symbol;
   // string _value ;
   Term * _value = NULL;

@@ -28,15 +28,15 @@ TEST (Variable , haveValue){
 // ?- X=2.7182.
 // X=2.7182
 TEST(Variable , numE_to_varX){
-  Number num(2.7182);
+  Number num(123000.02);
   Variable x("X");
   ASSERT_EQ("X", x.value());
   ASSERT_EQ("X", x.symbol());
-  
+
   ASSERT_TRUE(x.match(num));
-  ASSERT_EQ("2.7182", x.value());
-  ASSERT_EQ("2.7182", num.symbol());
-  ASSERT_EQ("2.7182", num.value());
+  ASSERT_EQ("123000.02", x.value());
+  ASSERT_EQ("123000.02", num.symbol());
+  ASSERT_EQ("123000.02", num.value());
   ASSERT_TRUE(x.match(num));
   ASSERT_TRUE(num.match(x));
   ASSERT_TRUE(x.match(x));
