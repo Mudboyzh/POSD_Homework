@@ -30,9 +30,7 @@ public:
     if (_assignable) {
       _value = &term;
       _assignable = false;
-      // if (term.className() == "Struct") {
-      //   term.ref.push_back(this);
-      // }
+
       if ( ref.size() != 0 ) {
         int refSize = ref.size();
         for(int i = 0; i < refSize ; i++) {
