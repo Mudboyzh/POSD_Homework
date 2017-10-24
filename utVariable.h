@@ -28,11 +28,16 @@ TEST (Variable , haveValue){
 // ?- X=2.7182.
 // X=2.7182
 TEST(Variable , numE_to_varX){
-  string t = "1000";
-  Number num(1000);
+  Number num(2.7182);
   Variable x("X");
   ASSERT_TRUE(x.match(num));
-  ASSERT_EQ("1000", x.value());
+  ASSERT_EQ("2.7182", x.value());
+  ASSERT_EQ("2.7182", num.symbol());
+  ASSERT_EQ("2.7182", num.value());
+  ASSERT_TRUE(x.match(num));
+  ASSERT_TRUE(num.match(x));
+  ASSERT_TRUE(x.match(x));
+  ASSERT_TRUE(num.match(num));
 }
 
 // ?- X=Y, X=1

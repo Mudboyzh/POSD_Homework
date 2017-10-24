@@ -60,8 +60,9 @@ public:
         _value = &var;
         _assignable = false;
       }
+      return ret;
     }
-    return ret;
+    else return _value->value() == var.value() ;
   } // match with Variable
 
 
