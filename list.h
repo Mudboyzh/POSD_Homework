@@ -1,7 +1,7 @@
 #ifndef LIST_H
 #define LIST_H
 
-#include "term.h"
+#include "atom.h"
 
 #include <vector>
 using std::vector;
@@ -34,24 +34,43 @@ public:
 
   string value() const {
   	string ret = "[" ;
-  	std::cout << "\nyeee1\n";
   	for( int i = 0; i < _elements.size(); i++ ) {
-  		std::cout << "element's value: " << _elements[i]->value() << std::endl;
   		ret += _elements[i]->value();
   		if ( i != _elements.size()-1 ) ret += ", ";
   	}
-  	std::cout << "\nyeee2\n";
   	ret += "]";
   	return ret ;
   }
-  bool match(Term & term){}
-  string className() const { return "List" ;};
+  bool match(Term & term) {
+    if ( term.className() == "Variable" ) {
+      List temp(_elements);
+      return term.match(temp);
+    }
 
+    return  value() == term.value();
+  }
 
+  bool match(List & listA) {
+    if ( &listA == this ) return true;
+    else {
+      if ( _elements.size() != listA._elements.size() ) return false;
+      else {
+        for ( int i = 0; i < _elements.size() ; i++ ) {
+          if ( !( _elements[i]->match( *listA._elements[i])) ) return false ; 
+        } // for
+      } // else
 
-private:
+      return true ;
+    } // else
+  }
+
+  string className() const { return "List" ;}
+
+  int getElementSize() {
+    return _elements.size();
+  }
+
   vector<Term *> _elements;
-
 };
 
 #endif

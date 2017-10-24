@@ -110,24 +110,46 @@ TEST(List, matchToVarOccuredInListShouldFail) {
   Number num496(496);
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
-  ASSERT_FALSE( x.match(listA));
+  ASSERT_TRUE( x.match(listA));
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
 // true.
 TEST(List, matchToSameListShouldSucceed) {
-
+  Variable x("X");
+  Atom ter("terence_tao");
+  Number num496(496);
+  std::vector<Term *> args = {&num496, &x, &ter};
+  List listA(args);
+  ASSERT_TRUE(listA.match(listA));
 }
 
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].
 // true.
 TEST(List, matchToSameListWithDiffVarNameShouldSucceed) {
-
+  Variable x("X"), y("Y");
+  Atom ter("terence_tao");
+  Number num496(496);
+  std::vector<Term *> argsA = {&num496, &x, &ter};
+  std::vector<Term *> argsB = {&num496, &y, &ter};
+  List listA(argsA);
+  List listB(argsB);
+  ASSERT_TRUE(listA.match(listB));
+  ASSERT_EQ("Y", x.value());
 }
 
 // ?- [496, X, terence_tao] = [496, 8128, terence_tao].
 // X = 8128.
 TEST(List, matchToVarToAtominListShouldSucceed) {
+  Variable x("X");
+  Atom ter("terence_tao");
+  Number num496(496), num8128(8128);
+  std::vector<Term *> argsA = {&num496, &x, &ter};
+  std::vector<Term *> argsB = {&num496, &num8128, &ter};
+  List listA(argsA);
+  List listB(argsB);
+  ASSERT_TRUE(listA.match(listB));
+  ASSERT_EQ("8128", x.value());
 
 }
 
@@ -135,7 +157,15 @@ TEST(List, matchToVarToAtominListShouldSucceed) {
 // Y = [496, alan_mathison_turing, terence_tao],
 // X = alan_mathison_turing.
 TEST(List, matchVarinListToAtomShouldSucceed) {
-
+  Variable x("X"), y("Y");
+  Atom ter("terence_tao"), alan("alan_mathison_turing");
+  Number num496(496);
+  std::vector<Term *> args = {&num496, &x, &ter};
+  List listA(args);
+  ASSERT_TRUE(y.match(listA));
+  ASSERT_TRUE(x.match(alan));
+  ASSERT_EQ("[496, alan_mathison_turing, terence_tao]", y.value());
+  ASSERT_EQ("alan_mathison_turing", x.value());
 }
 
 // Example: 
