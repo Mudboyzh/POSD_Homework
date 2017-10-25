@@ -10,7 +10,7 @@ class Number: public Term {
   public:
     Number(double num):_value(num) {
       _symbol = std::to_string(num) ;
-      std::cout << "Number before process :[" << _symbol<< "]\n";
+      // std::cout << "Number before process :[" << _symbol<< "]\n";
       if ( _symbol.find(".") != string::npos ) {
         for(int i = _symbol.length()-1; i > 0; i-- ) {
           // remove tail zero or dot. example: 2.0, 2.12000
@@ -21,7 +21,7 @@ class Number: public Term {
           }
         } // for
       }
-      std::cout << "Number after process:[" << _symbol<< "]\n";
+      // std::cout << "Number after process:[" << _symbol<< "]\n";
     }
 
     string symbol() const{

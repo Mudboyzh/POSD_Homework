@@ -8,9 +8,8 @@ using std::string;
 
 class Variable: public Term{
 public:
-  Variable(string s):_symbol(s){ std::cout << "Var symbol:[" << _symbol << "]\n"; }
+  Variable(string s):_symbol(s){ }
   string const _symbol;
-  // string _value ;
   Term * _value = NULL;
   bool _assignable = true;
   std::vector< Variable * >ref ;
@@ -18,10 +17,7 @@ public:
 
 
   string value() const { 
-    if (_assignable && _value == NULL ) {
-      std::cout << "value case 1: ["<< _symbol  << "]\n"; 
-      return _symbol;
-    }
+    if (_assignable && _value == NULL ) return _symbol;
     else if ( _assignable && _value != NULL) return _value->symbol();
     return _value->value(); 
   }

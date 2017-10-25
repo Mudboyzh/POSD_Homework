@@ -58,10 +58,18 @@ public:
   }
 
   bool match(List & listA) {
-    if ( &listA == this ) return true;
+    std::cout << "List Match List\n" ;
+    if ( &listA == this ) {
+      std::cout << "List Case 1\n";
+      return true;
+    }
     else {
-      if ( _elements.size() != listA._elements.size() ) return false;
+      if ( _elements.size() != listA._elements.size() ) {
+        std::cout << "List Case 2\n";
+        return false;
+      }
       else {
+        std::cout << "List Case 3\n";
         for ( int i = 0; i < _elements.size() ; i++ ) {
           if ( !( _elements[i]->match( *listA._elements[i])) ) return false ; 
         } // for
