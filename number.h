@@ -34,8 +34,6 @@ class Number: public Term {
 
     bool match( Term &term ) {
       if ( term.className() == "Variable" ) {
-        std::cout << "_value: " << _value << std::endl;
-        // Number temp(_value);
         return term.match(*this);
       }
 

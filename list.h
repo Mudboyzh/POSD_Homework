@@ -51,8 +51,7 @@ public:
   }
   bool match(Term & term) {
     if ( term.className() == "Variable" ) {
-      List temp(_elements);
-      return term.match(temp);
+      return term.match(*this);
     }
 
     return  value() == term.value();
@@ -71,6 +70,8 @@ public:
       return true ;
     } // else
   }
+
+
 
   string className() const { return "List" ;}
 
