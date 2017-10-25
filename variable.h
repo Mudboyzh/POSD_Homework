@@ -19,7 +19,7 @@ public:
 
   string value() const { 
     if (_assignable && _value == NULL ) {
-      std::cout << "value case 1\n"; 
+      std::cout << "value case 1: ["<< _symbol  << "]\n"; 
       return _symbol;
     }
     else if ( _assignable && _value != NULL) return _value->symbol();
