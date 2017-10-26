@@ -9,8 +9,8 @@ using std::string;
 class Number: public Term {
   public:
     Number(double num):_value(num) {
+      std::cout << "Number before process :[" << num<< "]\n";
       _symbol = std::to_string(num) ;
-      // std::cout << "Number before process :[" << _symbol<< "]\n";
       if ( _symbol.find(".") != string::npos ) {
         for(int i = _symbol.length()-1; i > 0; i-- ) {
           // remove tail zero or dot. example: 2.0, 2.12000

@@ -9,7 +9,7 @@ using std::string;
 class Variable: public Term{
 public:
   Variable(string s):_symbol(s){ std::cout << "Var:["<< _symbol << "]\n";}
-  string const _symbol;
+  string _symbol;
   Term * _value = NULL;
   bool _assignable = true;
   std::vector< Variable * >ref ;
