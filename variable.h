@@ -44,7 +44,7 @@ public:
     else return _value->value() == var.value() ;
   } // match with Variable
 
-  bool match( List &listA ) {
+  bool match( List & listA ) {
     bool ret = _assignable ;
     if (_assignable) {
       for (int i = 0; i < listA._elements.size(); i++) {
@@ -52,6 +52,16 @@ public:
       }
       _value = &listA;
       _assignable = false ;
+
+      if ( ref.size() != 0 ) {
+        int refSize = ref.size();
+        for(int i = 0; i < refSize ; i++) {
+          ref[i]->match(listA);
+        }
+      }
+    }
+    else {
+      ret =  (_value->value() == listA.value());
     }
     return ret ;
   } // match with List
