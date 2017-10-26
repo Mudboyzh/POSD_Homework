@@ -49,8 +49,12 @@ TEST(Variable , numE_to_varX){
 TEST (Variable, varY_to_varX_and_num1_to_varX) {
   Number num1(1);
   Variable x("X");
+  ASSERT_EQ("X",x.value());
   Variable y("Y");
+  ASSERT_EQ("Y",y.value());
   x.match(y);
+  ASSERT_EQ("Y",x.value());
+  ASSERT_EQ("Y",y.value());
   x.match(num1);
   ASSERT_EQ("1", y.value());
 }

@@ -51,7 +51,7 @@ public:
         var.ref.push_back(this);
         // 互相紀錄對方
         _value = &var;
-        var._value = this;
+        // var._value = this;
       }
       else {
         _value = &var;

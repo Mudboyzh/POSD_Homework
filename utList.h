@@ -117,10 +117,21 @@ TEST(List, matchToVarOccuredInListShouldFail) {
 // true.
 TEST(List, matchToSameListShouldSucceed) {
   Variable x("X");
+  ASSERT_EQ("X", x.symbol());
+  ASSERT_EQ("X", x.value());
+
   Atom ter("terence_tao");
+  ASSERT_EQ("terence_tao", ter.symbol());
+  ASSERT_EQ("terence_tao", ter.value());
+
   Number num496(496);
+  ASSERT_EQ("496", num496.symbol());
+  ASSERT_EQ("496", num496.value());
+
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
+  ASSERT_EQ("[496, X, terence_tao]", listA.value());
+  ASSERT_EQ("[496, X, terence_tao]", listA.symbol());
   ASSERT_TRUE(listA.match(listA));
 }
 
