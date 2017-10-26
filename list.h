@@ -87,10 +87,6 @@ public:
 
   string className() const { return "List" ;}
 
-  int getElementSize() {
-    return _elements.size();
-  }
-
   vector<Term *> _elements;
 };
 

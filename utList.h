@@ -110,7 +110,7 @@ TEST(List, matchToVarOccuredInListShouldFail) {
   Number num496(496);
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
-  ASSERT_TRUE( x.match(listA));
+  ASSERT_FALSE( x.match(listA));
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
