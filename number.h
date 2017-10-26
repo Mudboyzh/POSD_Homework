@@ -21,7 +21,7 @@ class Number: public Term {
           }
         } // for
       }
-      // std::cout << "Number after process:[" << _symbol<< "]\n";
+      std::cout << "Number after process:[" << _symbol<< "]\n";
     }
 
     string symbol() const{

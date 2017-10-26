@@ -28,7 +28,7 @@ class Atom : public Term{
 public:
   string _symbol;
   
-  Atom (string s):_symbol(s) {}
+  Atom (string s):_symbol(s) {std::cout << "Var:["<< _symbol << "]\n";}
 
   string symbol() const{
     return _symbol;
