@@ -133,6 +133,9 @@ TEST(List, matchToSameListShouldSucceed) {
   ASSERT_EQ("[496, X, terence_tao]", listA.value());
   ASSERT_EQ("[496, X, terence_tao]", listA.symbol());
   ASSERT_TRUE(listA.match(listA));
+
+  List listC;
+  ASSERT_TRUE(listC.match(listC));
 }
 
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].

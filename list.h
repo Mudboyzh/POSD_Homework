@@ -8,10 +8,14 @@ using std::vector;
 
 class List : public Term {
 public:
-  List () {
-
+  List () {std::cout << "List\n";}
+  List (vector<Term *> const & elements):_elements(elements){
+    std::cout << "List(args)\n";
+    for (int i = 0;i < _elements.size(); i++ ) {
+      std::cout <<_elements[i]->symbol() << ", " ;
+    }
+    std::cout << "\n";
   }
-  List (vector<Term *> const & elements):_elements(elements){}
 
   static bool elementsSort( const Term * first, const Term * second ) {
   	return first->value() < second->value();
