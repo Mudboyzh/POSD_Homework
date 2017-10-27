@@ -56,6 +56,7 @@ TEST(List, matchToAtomShouldFail) {
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
   ASSERT_FALSE(tom.match(listA));
+  ASSERT_FALSE(listA.match(tom));
 }
 
 // ?- 8128 = [496, X, terence_tao].
@@ -69,6 +70,7 @@ TEST(List, matchToNumberShouldFail) {
   List listA(args);
   ASSERT_EQ("[496, X, terence_tao]", listA.value());
   ASSERT_FALSE(num8128.match(listA));
+  ASSERT_FALSE(listA.match(num8128));
 }
 
 // ?- s(X) = [496, X, terence_tao].

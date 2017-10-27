@@ -2,7 +2,7 @@
 #define LIST_H
 
 #include "atom.h"
-
+#include "variable.h"
 #include <vector>
 #include <typeinfo>
 using std::vector;
@@ -38,6 +38,13 @@ public:
       } // else
     } // else
     return true ;
+  }
+
+  bool match(Term & a){
+    if (typeid(a) ==  typeid(Variable))
+      return a.match(*this);
+    else
+      return symbol() == a.symbol();
   }
 
 public:
