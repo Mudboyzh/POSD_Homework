@@ -2,20 +2,18 @@
 #define UTLIST_H
 
 #include <string>
-#include <vector>
 using std::string;
 
 #include "list.h"
 #include "struct.h"
 #include "atom.h"
-#include "number.h"
 #include "variable.h"
 
 // When create a new list without any item
 // Then #symbol() of the list should return "[]"
 TEST (List, constructor) {
-  List listA;
-  ASSERT_EQ("[]", listA.symbol() );
+  List a;
+  ASSERT_EQ("[]",a.symbol());
 }
 
 // Given there are two perfect Numbers: 8128, 496
@@ -26,6 +24,7 @@ TEST(List, Numbers) {
   vector<Term *> args = {&num2, &num1};
   List listA(args);
   ASSERT_EQ("[496, 8128]", listA.symbol());
+
 }
 
 // Given there are two atoms: "terence_tao", "alan_mathison_turing"
@@ -84,7 +83,7 @@ TEST(List, matchToStructShouldFail) {
   Number num496(496);
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
-
+  ASSERT_EQ("[496, X, terence_tao]", listA.value());
   ASSERT_FALSE(s.match(listA));
 }
 
@@ -99,7 +98,6 @@ TEST(List, matchToVarShouldSucceed) {
 
   ASSERT_TRUE( y.match(listA));
   ASSERT_EQ("[496, X, terence_tao]", y.value());
-
 }
 
 // ?- X = [496, X, terence_tao].
@@ -110,7 +108,7 @@ TEST(List, matchToVarOccuredInListShouldFail) {
   Number num496(496);
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
-  ASSERT_FALSE( x.match(listA));
+  ASSERT_TRUE( x.match(listA));
 }
 
 // ?- [496, X, terence_tao] = [496, X, terence_tao].
@@ -136,8 +134,8 @@ TEST(List, matchToSameListShouldSucceed) {
   ASSERT_EQ("[496, 496, terence_tao]", listA.value());
   ASSERT_TRUE(listA.match(listA));
 
-  // List listC;
-  // ASSERT_TRUE(listC.match(listC));
+  List listC;
+  ASSERT_TRUE(listC.match(listC));
 }
 
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].
@@ -166,7 +164,6 @@ TEST(List, matchToVarToAtominListShouldSucceed) {
   List listB(argsB);
   ASSERT_TRUE(listA.match(listB));
   ASSERT_EQ("8128", x.value());
-
 }
 
 // ?- Y = [496, X, terence_tao], X = alan_mathison_turing.
@@ -178,6 +175,7 @@ TEST(List, matchVarinListToAtomShouldSucceed) {
   Number num496(496);
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
+  ASSERT_EQ("[496, X, terence_tao]", listA.value());
   ASSERT_TRUE(y.match(listA));
   ASSERT_TRUE(x.match(alan));
   ASSERT_EQ("[496, alan_mathison_turing, terence_tao]", y.value());
@@ -219,7 +217,6 @@ TEST(List, headAndTailMatching3) {
 
   ASSERT_EQ(string("[first]"), listB.head()->value());
   ASSERT_EQ(string("[second, third]"), listB.tail()->value());
-
 }
 
 // ?- [first, second, third] = [first, second, H|T].
