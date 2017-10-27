@@ -131,11 +131,13 @@ TEST(List, matchToSameListShouldSucceed) {
   std::vector<Term *> args = {&num496, &x, &ter};
   List listA(args);
   ASSERT_EQ("[496, X, terence_tao]", listA.value());
+  x.match(num496);
   ASSERT_EQ("[496, X, terence_tao]", listA.symbol());
+  ASSERT_EQ("[496, 496, terence_tao]", listA.value());
   ASSERT_TRUE(listA.match(listA));
 
-  List listC;
-  ASSERT_TRUE(listC.match(listC));
+  // List listC;
+  // ASSERT_TRUE(listC.match(listC));
 }
 
 // ?- [496, X, terence_tao] = [496, Y, terence_tao].

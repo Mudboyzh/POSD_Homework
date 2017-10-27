@@ -12,6 +12,7 @@ class Struct:public Term
 {
 public:
   Struct(Atom const & name, std::vector<Term *> args):_name(name), _args(args) {
+    std::cout << "Struct: " << _name.symbol() << std::endl;
   }
 
   std::vector< Variable * >ref ;

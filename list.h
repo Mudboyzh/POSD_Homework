@@ -64,12 +64,12 @@ public:
   bool match(List & listA) {
     std::cout << "List Match List\n" ;
     if ( &listA == this ) {
-      std::cout << "List Case 1\n";
+      std::cout << "List Case 1, same list\n";
       return true;
     }
     else {
       if ( _elements.size() != listA._elements.size() ) {
-        std::cout << "List Case 2\n";
+        std::cout << "List Case 2: diff size\n";
         return false;
       }
       else {
