@@ -51,11 +51,11 @@ public:
   List (): _elements() {}
   List (vector<Term *> const & elements):_elements(elements){}
   Term * head() const{
-    if ( _elements.size() == 0 )  throw "Accessing head in an empty list";
+    if ( _elements.size() == 0 )  throw string("Accessing head in an empty list");
     return _elements[0] ;
   }
   List * tail() const {
-    if ( _elements.size() == 0 ) throw "Accessing tail in an empty list";
+    if ( _elements.size() == 0 ) throw string("Accessing tail in an empty list");
     vector<Term *> v;
     v.assign(_elements.begin()+1,_elements.end());
     return new List(v) ;

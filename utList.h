@@ -240,7 +240,7 @@ TEST (List, emptyExecptionOfHead) {
   try {
     listEmpty.head()->value();
   }
-  catch (const char* errorMsg){
+  catch (const string errorMsg){
     ASSERT_EQ("Accessing head in an empty list", errorMsg);
   }
 }
@@ -253,7 +253,7 @@ TEST (List, emptyExecptionOfTail) {
   try {
     listEmpty.tail()->value();
   }
-  catch (const char* errorMsg){
+  catch (const string errorMsg){
     ASSERT_EQ("Accessing tail in an empty list", errorMsg);
   }
 }
