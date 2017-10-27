@@ -8,7 +8,7 @@ using std::string;
 #include "struct.h"
 #include "atom.h"
 #include "variable.h"
-
+#include "number.h"
 // When create a new list without any item
 // Then #symbol() of the list should return "[]"
 TEST (List, constructor) {
