@@ -76,6 +76,12 @@ public:
     return buffer.substr(posBegin, pos-posBegin);
   }
 
+  string extractList() {
+    int posBegin = position();
+
+    return " ";
+  }
+
   char extractChar() {
     return buffer[pos++];
   }

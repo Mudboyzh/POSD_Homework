@@ -3,7 +3,6 @@
 #include "variable.h"
 #include "struct.h"
 #include "atom.h"
-#include "number.h"
 
 TEST(Variable, constructor){
   Variable X("X");
