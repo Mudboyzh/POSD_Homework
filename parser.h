@@ -23,11 +23,17 @@ public:
     }else if(token == ATOM){
         Atom* atom = new Atom(symtable[_scanner.tokenValue()].first);
         if(_scanner.currentChar() == '(' ) {
-          _scanner.nextToken() ;
-          vector<Term*> terms = getArgs();
-          if(_currentToken == ')')
+          _currentToken = _scanner.nextToken() ; // get '('
+          printf("pos:%d\n",_scanner.position() );
+          if(_scanner.currentChar() == ')') {
+            return new Struct(*atom);
+            // if (terms.size() > 0) return new Struct(*atom, terms);
+            // else return new Struct(*atom);
+          }
+          else { 
+            vector<Term*> terms = getArgs();
             return new Struct(*atom, terms);
-          else throw std::string("unexpected token");
+          }
         }
         else
           return atom;
