@@ -23,7 +23,7 @@ mainVariable.o: mainVariable.cpp utVariable.h variable.h
 #mainExp.o: mainExp.cpp exp.h global.h
 #	g++ -std=gnu++0x -c mainExp.cpp
 
-utScanner: mainScanner.o atom.o scanner.h utScanner.h utParser.h parser.h
+utScanner: mainScanner.o atom.o scanner.h utScanner.h utParser.h parser.h term.h
 	g++ -o hw5 mainScanner.o atom.o -lgtest 
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
 		g++ -std=gnu++0x -c mainScanner.cpp
