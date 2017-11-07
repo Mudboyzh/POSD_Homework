@@ -50,7 +50,17 @@ public:
         return new List(args);
       }
     }
-
+    else if ( token == ATOMSC) {
+       Atom* atom = new Atom(symtable[_scanner.tokenValue()].first);
+       if(_scanner.currentChar() == '(' ) {
+         _scanner.nextToken() ;
+         vector<Term*> terms = getArgs();
+         if(_currentToken == ')')
+           return new Struct(*atom, terms);
+         else throw std::string("unexpected token");
+       }
+       else throw std::string("unexpected token");
+    }
     return nullptr;
   }
 

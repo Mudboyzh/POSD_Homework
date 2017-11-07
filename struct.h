@@ -13,8 +13,14 @@ public:
     _args = args;
   }
 
+  Struct(Atom name): _name(name){}
+
   Term * args(int index) {
     return _args[index];
+  }
+
+  int arity() {
+    return _args.size();
   }
 
   Atom & name() {
