@@ -105,7 +105,7 @@ TEST_F(ParserTest, parseStructThreeArgs) {
 TEST_F(ParserTest, parseListEmpty) {
   Scanner scanner("   [   ]");
   Parser parser(scanner);
-  // ASSERT_EQ("[ ]", parser.createTerm()->symbol());
+  ASSERT_EQ("[]", parser.createTerm()->symbol());
 }
 
 
@@ -114,7 +114,13 @@ TEST_F(ParserTest, parseListEmpty) {
 // Then it should return a Variable.
 // And #symbol() of Variable should return "_date".
 TEST_F(ParserTest, parseVar) {
-
+  Scanner scanner("_date");
+  Parser parser(scanner);
+  Atom tom("tom");
+  Term* result = parser.createTerm();
+  ASSERT_TRUE(result->match(tom));
+  ASSERT_EQ("_date", result->symbol());
+  ASSERT_EQ("tom",result->value());
 }
 
 
@@ -122,7 +128,9 @@ TEST_F(ParserTest, parseVar) {
 // When parser parses all terms via scanner.
 // Then it should return nothing.
 TEST_F(ParserTest, listOfTermsEmpty) {
-
+  Scanner scanner("");
+  Parser parser(scanner);
+  ASSERT_EQ(nullptr, parser.createTerm());
 }
 
 
@@ -131,7 +139,9 @@ TEST_F(ParserTest, listOfTermsEmpty) {
 // Then it should return a Struct.
 // And #symbol() of Strcut should return "s(s(s(s(1))))".
 TEST_F(ParserTest, parseStructOfStructAllTheWay) {
-
+  Scanner scanner("s(s(s(s(1))))");
+  Parser parser(scanner);
+  ASSERT_EQ("s(s(s(s(1))))", parser.createTerm()->symbol());
 }
 
 
@@ -140,7 +150,9 @@ TEST_F(ParserTest, parseStructOfStructAllTheWay) {
 // Then it should return a List.
 // And #symbol() of List should return "[[1], []]".
 TEST_F(ParserTest, parseListOfLists) {
-
+  Scanner scanner("   [  [1], [] ]");
+  Parser parser(scanner);
+  ASSERT_EQ("[[1], []]", parser.createTerm()->symbol());
 }
 
 
@@ -149,7 +161,9 @@ TEST_F(ParserTest, parseListOfLists) {
 // Then it should return a List.
 // And #symbol() of List should return "[[1], [], s(s(1))]".
 TEST_F(ParserTest, parseListOfListsAndStruct) {
-
+  Scanner scanner("   [  [1], [], s(s(1)) ]   ");
+  Parser parser(scanner);
+  ASSERT_EQ("[[1], [], s(s(1))]", parser.createTerm()->symbol());
 }
 
 // Given there is string: "   [1, 2]" in scanner.
@@ -157,14 +171,23 @@ TEST_F(ParserTest, parseListOfListsAndStruct) {
 // Then it should return a List.
 // And #symbol() of List should return "[1, 2]".
 TEST_F(ParserTest, parseList) {
-
+  Scanner scanner("   [1, 2]");
+  Parser parser(scanner);
+  ASSERT_EQ("[1, 2]", parser.createTerm()->symbol());
 }
 
 // Given there is string: "[1,2)" in scanner.
 // When parser parses all terms via scanner.
 // Then it should return a string: "unexpected token" as exception.
 TEST_F(ParserTest, illegal1) {
-
+  Scanner scanner("[1,2)");
+  Parser parser(scanner);
+  try {
+    parser.createTerm();
+  } 
+  catch( string error) {
+    ASSERT_EQ("unexpected token", error);
+  }
 }
 
 // Given there is string: ".(1,[])" in scanner.
@@ -174,7 +197,9 @@ TEST_F(ParserTest, illegal1) {
 // And #symbol() of Struct should return ".(1, [])".
 // And the first term should be number: "1", the second term should be another List: "[]".
 TEST_F(ParserTest, ListAsStruct) {
-
+  Scanner scanner("");
+  Parser parser(scanner);
+  ASSERT_EQ(nullptr, parser.createTerm());
 }
 
 

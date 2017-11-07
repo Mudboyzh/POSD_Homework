@@ -8,6 +8,7 @@ using std::string;
 #include "global.h"
 #include "scanner.h"
 #include "struct.h"
+#include "list.h"
 
 class Parser{
 public:
@@ -26,10 +27,30 @@ public:
           vector<Term*> terms = getArgs();
           if(_currentToken == ')')
             return new Struct(*atom, terms);
+          else throw std::string("unexpected token");
         }
         else
           return atom;
+    } 
+    else if ( token == '[') {
+      _scanner.skipLeadingWhiteSpace();
+      if(_scanner.currentChar() != ']') {
+        vector<Term*> args = getArgs();
+        // _scanner.skipLeadingWhiteSpace();
+        
+        if( _currentToken == ']') {
+          return new List(args);
+        }
+        else throw std::string("unexpected token");
+      }
+      else {
+        // current token is ']',  means "[]"
+        _scanner.nextToken();
+        vector<Term*> args = {};
+        return new List(args);
+      }
     }
+
     return nullptr;
   }
 
