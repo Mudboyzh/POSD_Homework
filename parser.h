@@ -39,11 +39,23 @@ public:
                   }
         case ',': {
                     Node *n ;
-                    while(op_op.size() > 0 && op_op.top()->payload != COMMA ) {
+                    while(op_op.size() > 0 && op_op.top()->payload != COMMA && op_op.top()->payload != SEMICOLON ) {
                       n = makeTree();
                       op_term.push(n);
                     }
                     n = new Node(COMMA);
+                    op_op.push(n);
+                    break;
+                  }
+        case ';': {
+                    Node *n;
+                    while(op_op.size() > 0 && op_op.top()->payload != SEMICOLON ) {
+                      n = makeTree();
+                      op_term.push(n);
+                    }
+                    _allTermsTable.push_back(_tempTermsTable);
+                    _tempTermsTable.clear();
+                    n = new Node(SEMICOLON);
                     op_op.push(n);
                     break;
                   }       
@@ -161,11 +173,6 @@ public:
     return _terms;
   }
 
-  vector<Term *> &getTable()
-  {
-    return _tempTermsTable;
-  }
-
 private:
   FRIEND_TEST(ParserTest, createArgs);
   FRIEND_TEST(ParserTest, ListOfTermsEmpty);
@@ -190,6 +197,8 @@ private:
 
   vector<Term *> _terms;
   vector<Term *> _tempTermsTable;
+  vector< vector<Term *> > _allTermsTable;
+  int scope = 0;
   Scanner _scanner;
   int _currentToken;
   Node *tree;

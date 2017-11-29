@@ -48,10 +48,11 @@ mainIterator.o: mainIterator.cpp utIterator.h
 #list.o: list.h list.cpp term.h var.h
 #	g++ -std=gnu++0x -c list.cpp
 clean:
-	rm -f *.o madRace utAtom utVariable utScanner
+	rm -f *.o madRace utAtom utVariable utScanner hw6
 stat:
 	wc *.h *.cpp
 
 test:
+	make clean 
 	make utScanner
 	./hw6

@@ -21,7 +21,7 @@ public:
     {
       return left->term->match(*(right->term));
     }
-    else if (payload == COMMA)
+    else if (payload == COMMA ||payload == SEMICOLON)
     {
       return left->evaluate() && right->evaluate();
     }
