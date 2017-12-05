@@ -2,7 +2,6 @@
 #define ITERATOR_H
 
 #include "struct.h"
-#include "list.h"
 
 class Iterator {
 public:
@@ -12,23 +11,10 @@ public:
   virtual bool isDone() const = 0;
 };
 
-class NullIterator :public Iterator{
-public:
-  NullIterator(Term *n){}
-  void first(){}
-  void next(){}
-  Term * currentItem() const{
-      return nullptr;
-  }
-  bool isDone() const{
-    return true;
-  }
-
-};
-
 class StructIterator :public Iterator {
 public:
-  friend class Struct;
+  StructIterator(Struct *s): _index(0), _s(s) {}
+
   void first() {
     _index = 0;
   }
@@ -45,7 +31,6 @@ public:
     _index++;
   }
 private:
-  StructIterator(Struct *s): _index(0), _s(s) {}
   int _index;
   Struct* _s;
 };
