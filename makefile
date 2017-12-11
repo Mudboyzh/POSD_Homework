@@ -12,7 +12,7 @@ utVariable: mainVariable.o atom.o struct.o
 		g++ -o utVariable mainVariable.o atom.o struct.o -lgtest 
 mainVariable.o: mainVariable.cpp utVariable.h variable.h
 		g++ -std=gnu++0x -c mainVariable.cpp
-list.o:list.cpp list.h
+list.o: list.cpp list.h
 		g++ -std=gnu++0x -c list.cpp
 struct.o:struct.cpp struct.h
 		g++ -std=gnu++0x -c struct.cpp
@@ -35,5 +35,6 @@ clean:
 stat:
 	wc *.h *.cpp
 test:
+	make clean 
 	make utIterator
 	./hw7
