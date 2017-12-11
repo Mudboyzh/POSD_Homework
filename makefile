@@ -55,5 +55,6 @@ clean:
 stat:
 	wc *.h *.cpp
 test:
+	make clean
 	make utIterator
 	./hw7
