@@ -4,12 +4,12 @@
 #include "struct.h"
 #include "variable.h"
 #include "atom.h"
-#include "number.h"
 #include "list.h"
+#include "number.h"
 #include "iterator.h"
 #include <iostream>
 using namespace std;
-//s(1, t(x, 2), Y)
+
 TEST(iterator, first)
 {
   Number one(1);
@@ -18,10 +18,7 @@ TEST(iterator, first)
   Number two(2);
   Struct t(Atom("t"), {&X, &two});
   Struct s(Atom("s"), {&one, &t, &Y});
-  // StructIterator it(&s);
   Iterator<Term *> *itStruct = s.createIterator();
-  // Iterator& itStruct = it;
-  // ASSERT_EQ(it.first()->symbol());
   itStruct->first();
   ASSERT_EQ("1", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
@@ -36,26 +33,27 @@ TEST(iterator, first)
 
 TEST(iterator, nested_iterator)
 {
-  // Number one(1);
-  // Variable X("X");
-  // Variable Y("Y");
-  // Number two(2);
-  // Struct t(Atom("t"), { &X, &two });
-  // Struct s(Atom("s"), { &one, &t, &Y });
-  // StructIterator it(&s);
-  // it.first();
-  // it.next();
-  // Struct *s2 = dynamic_cast<Struct *>(it.currentItem());
+  
+    Number one(1);
+    Variable X("X");
+    Variable Y("Y");
+    Number two(2);
+    Struct t(Atom("t"), {&X, &two});
+    Struct s(Atom("s"), {&one, &t, &Y});
+    Iterator<Term*>* it = s.createIterator();
+    it->first();
+    it->next();
+    Struct* s2 = dynamic_cast<Struct*>(it->currentItem());
+    Iterator<Term*>* it2 = s2->createIterator();
 
-  // StructIterator it2(s2);
-  // it2.first();
-  // ASSERT_EQ("X", it2.currentItem()->symbol());
-  // ASSERT_FALSE(it2.isDone());
-  // it2.next();
-  // ASSERT_EQ("2", it2.currentItem()->symbol());
-  // ASSERT_FALSE(it2.isDone());
-  // it2.next();
-  // ASSERT_TRUE(it2.isDone());
+    it2->first();
+    ASSERT_EQ("X", it2->currentItem()->symbol());
+    ASSERT_FALSE(it2->isDone());
+    it2->next();
+    ASSERT_EQ("2", it2->currentItem()->symbol());
+    ASSERT_FALSE(it2->isDone());
+    it2->next();
+    ASSERT_TRUE(it2->isDone());
 }
 
 TEST(iterator, firstList)
@@ -93,13 +91,7 @@ TEST(iterator, NullIterator)
 
 TEST(iterator, StructBFSIterator)
 {
-//          s(t2(t(x, 2), 1), t(x, 2), Y)
-//             /            |      \
-//    t2(t(x, 2), 1)    t(x, 2)        Y
-//        /       \     /   \ 
-//    t(x, 2)       1   x       2
-//     /    \
-//     x      2
+
 
   Number one(1);
   Variable X("X");
@@ -109,6 +101,7 @@ TEST(iterator, StructBFSIterator)
   Struct t2(Atom("t2"), {&t, &one});  // t2(t(x, 2), 1)
   Struct s(Atom("s"), {&t2, &t, &Y}); // s(t2(t(x, 2), 1), t(x, 2), Y)
   Iterator<Term *> *it = s.createBFSIterator();
+  std::cout << "BFS START\n";
   it->first();
   ASSERT_EQ("t2(t(X, 2), 1)", it->currentItem()->symbol());
   it->next();
@@ -133,13 +126,7 @@ TEST(iterator, StructBFSIterator)
 
 TEST(iterator, ListBFSIterator)
 {
-//     [[1, X], [[1, X], 2], Y]
-//     /            |         \
-//   [1, X]    [[1, X], 2]      Y
-//   /   \         /     \     
-//  1    X     [1, X]     2
-//               /  \
-//             1   X
+
   Number one(1);
   Variable X("X");
   Variable Y("Y");
@@ -176,13 +163,7 @@ TEST(iterator, ListBFSIterator)
 
 TEST(iterator, StructDFSIterator)
 {
-//          s(t2(t(x, 2), 1), t(x, 2), Y)
-//             /            |      \
-//    t2(t(x, 2), 1)    t(x, 2)        Y
-//        /       \     /   \ 
-//    t(x, 2)       1   x       2
-//     /    \
-//     x      2
+
 
   Number one(1);
   Variable X("X");
@@ -216,13 +197,6 @@ TEST(iterator, StructDFSIterator)
 
 TEST(iterator, ListDFSIterator)
 {
-//     [[1, X], [[1, X], 2], Y]
-//     /            |         \
-//   [1, X]    [[1, X], 2]      Y
-//   /   \         /     \     
-//  1    X     [1, X]     2
-//               /  \
-//             1   X
   Number one(1);
   Variable X("X");
   Variable Y("Y");
