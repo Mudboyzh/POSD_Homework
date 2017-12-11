@@ -1,9 +1,4 @@
-all: madRace utAtom utVariable utScanner
-
-madRace: mainMadRace.o
-	g++ -o madRace mainMadRace.o -lgtest 
-mainMadRace.o: mainMadRace.cpp madRace.h utMadRace.h
-	g++ -std=gnu++0x -c mainMadRace.cpp
+all: utIterator
 
 utAtom: mainAtom.o atom.o struct.o
 	g++ -o utAtom mainAtom.o atom.o struct.o -lgtest 
