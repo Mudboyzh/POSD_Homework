@@ -22,7 +22,7 @@ utScanner: mainScanner.o atom.o list.o struct.o scanner.h utScanner.h utParser.h
 	g++ -o utScanner mainScanner.o atom.o list.o struct.o -lgtest 
 mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
 		g++ -std=gnu++0x -c mainScanner.cpp
-utIterator: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h
+utIterator: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h number.h
 	g++ -o hw7 mainIterator.o atom.o list.o struct.o -lgtest 
 
 

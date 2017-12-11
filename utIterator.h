@@ -5,6 +5,7 @@
 #include "variable.h"
 #include "atom.h"
 #include "list.h"
+#include "number.h"
 #include "iterator.h"
 #include <iostream>
 using namespace std;
