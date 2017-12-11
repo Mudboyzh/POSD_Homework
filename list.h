@@ -23,10 +23,10 @@ public:
   Term * args(int index) {
     return _elements[index];
   }
+  Iterator<Term *> *createIterator();
+  Iterator<Term *> *createDFSIterator();
+  Iterator<Term *> *createBFSIterator();
   int arity() const {return _elements.size();}
-  Iterator<Term *> * createIterator();
-  Iterator<Term *> * createBFSIterator();
-  Iterator<Term *> * createDFSIterator();
 private:
   vector<Term *> _elements;
 };

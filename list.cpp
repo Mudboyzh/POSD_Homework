@@ -4,8 +4,26 @@
 #include <iostream>
 #include <string>
 #include "list.h"
+
 #include "iterator.h"
 using std::vector;
+
+
+Iterator<Term *> *List::createIterator()
+{
+    return new ListIterator<Term *>(this);
+}
+
+Iterator<Term *> *List::createDFSIterator()
+{
+    return new DFSIterator<Term *>(this);
+}
+
+Iterator<Term *> *List::createBFSIterator()
+{
+    return new BFSIterator<Term *>(this);
+}
+
 
 string List::symbol() const{
     string ret ;
@@ -85,18 +103,4 @@ List * List::tail() const {
     _clone_elements.assign(_elements.begin()+1, _elements.end());
     List *ls= new List(_clone_elements) ;
     return ls;
-}
-Iterator<Term *> *List::createIterator()
-{
-  return new ListIterator<Term *>(this);
-}
-
-Iterator<Term *> *List::createBFSIterator()
-{
-  return new BFSIterator<Term *> (this);
-}
-
-Iterator<Term *> *List::createDFSIterator()
-{
-  return new DFSIterator<Term *>(this);
 }
