@@ -1,6 +1,5 @@
 #include "struct.h"
 #include "iterator.h"
-#include "atom.h" 
 
 Iterator<Term *> * Struct::createIterator()
 {

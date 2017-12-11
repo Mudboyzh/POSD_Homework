@@ -8,7 +8,7 @@
 #include "iterator.h"
 #include <iostream>
 using namespace std;
-//s(1, t(x, 2), Y)
+
 TEST(iterator, first)
 {
   Number one(1);
@@ -17,10 +17,7 @@ TEST(iterator, first)
   Number two(2);
   Struct t(Atom("t"), {&X, &two});
   Struct s(Atom("s"), {&one, &t, &Y});
-  // StructIterator it(&s);
   Iterator<Term *> *itStruct = s.createIterator();
-  // Iterator& itStruct = it;
-  // ASSERT_EQ(it.first()->symbol());
   itStruct->first();
   ASSERT_EQ("1", itStruct->currentItem()->symbol());
   ASSERT_FALSE(itStruct->isDone());
