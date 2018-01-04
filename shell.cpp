@@ -10,7 +10,6 @@ int main(int argc, char **argv) {
     stringstream inputStream;
     Parser *parser;
     while (true) {
-        cout << "?- ";
         while ( input == "" || input.back() != '.') {
             if (input == "" )
                 cout << "?- ";
@@ -18,8 +17,11 @@ int main(int argc, char **argv) {
                 cout << "|  ";
             getline(cin, input);
             inputStream << input;
-            while ( inputStream >> part)
+            while ( inputStream >> part) 
                 code += part ;
+            
+            inputStream.str("");  // must have 
+            inputStream.clear();  // for reuse inputStream
         }
         
         if ( code == "halt.") 
@@ -35,6 +37,7 @@ int main(int argc, char **argv) {
             }
         }
         code = "";
+        input = "";
     }
 
 }

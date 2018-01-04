@@ -3,6 +3,7 @@
 #include <string>
 using std::string;
 
+#include <gtest/gtest.h>
 #include "atom.h"
 #include "variable.h"
 #include "global.h"
