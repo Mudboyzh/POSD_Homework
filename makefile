@@ -1,42 +1,34 @@
-all: utIterator
+all: hw8
 
+hw8: mainExp.o
 
-utAtom: mainAtom.o atom.o struct.o
-	g++ -o utAtom mainAtom.o atom.o struct.o -lgtest 
-mainAtom.o: mainAtom.cpp utAtom.h atom.h utStruct.h struct.h
-	g++ -std=gnu++0x -c mainAtom.cpp
+ifeq (${OS}, Windows_NT)
+	g++ -o hw8 mainExp.o struct.o list.o atom.o -lgtest
+else
+	g++ -o hw8 mainExp.o struct.o list.o atom.o -lgtest -lpthread
+endif
+
+mainExp.o: mainExp.cpp atom.h list.h scanner.h parser.h global.h \
+		   variable.h struct.h iterator.h exception.h expression.h \
+		   struct.o list.o atom.o
+	g++ -std=gnu++0x -c mainExp.cpp
 
 atom.o: atom.cpp atom.h variable.h
 	g++ -std=gnu++0x -c atom.cpp
 
-utVariable: mainVariable.o atom.o struct.o
-		g++ -o utVariable mainVariable.o atom.o struct.o -lgtest 
-mainVariable.o: mainVariable.cpp utVariable.h variable.h
-		g++ -std=gnu++0x -c mainVariable.cpp
 list.o:list.cpp list.h
 		g++ -std=gnu++0x -c list.cpp
 struct.o:struct.cpp struct.h
 		g++ -std=gnu++0x -c struct.cpp
 
-
-utScanner: mainScanner.o atom.o list.o struct.o scanner.h utScanner.h utParser.h parser.h
-	g++ -o utScanner mainScanner.o atom.o list.o struct.o -lgtest 
-mainScanner.o: mainScanner.cpp utScanner.h scanner.h  atom.h struct.h variable.h  utParser.h parser.h
-		g++ -std=gnu++0x -c mainScanner.cpp
-utIterator: mainIterator.o atom.o list.o struct.o iterator.h utIterator.h
-	g++ -o hw7 mainIterator.o atom.o list.o struct.o -lgtest 
-
-
-mainIterator.o: mainIterator.cpp utIterator.h
-	g++ -std=gnu++0x -c mainIterator.cpp
-
-
+# exp: mainExp.o
+# 	g++ -o exp mainExp.o -lgtest -lpthread
 
 clean:
-	rm -f *.o utIterator
+	rm -f *.o hw8
 stat:
 	wc *.h *.cpp
 test:
 	make clean
-	make utIterator
-	./hw7
+	make
+	./hw8

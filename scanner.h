@@ -24,7 +24,7 @@ public:
         string s = extractAtom();
         processToken<ATOM>(s);
         return ATOM;
-      } else if (isSpecialCh(currentChar())) {
+      } else if (isSpecialCh(currentChar()) && position() < buffer.length() - 1) {
         string s = extractAtomSC();
         processToken<ATOMSC>(s);
         return ATOMSC;
@@ -35,6 +35,38 @@ public:
       } else {
         _tokenValue = NONE;
         return extractChar();
+      }
+  }
+
+  int peekNextToken() {
+      int originIndex  = pos ;
+      if (skipLeadingWhiteSpace() >= buffer.length()) {
+          pos = originIndex;
+          return EOS;
+      }
+      else if (isdigit(currentChar())) {
+          _tokenValue = extractNumber();
+          pos = originIndex;
+          return NUMBER;
+      }  else if (islower(currentChar())) {
+          string s = extractAtom();
+          processToken<ATOM>(s);
+          pos = originIndex;
+          return ATOM;
+      } else if (isSpecialCh(currentChar()) && position() < buffer.length() - 1) {
+          string s = extractAtomSC();
+          processToken<ATOMSC>(s);
+          pos = originIndex;
+          return ATOMSC;
+      } else if (isupper(currentChar()) || currentChar() == '_') {
+          string s = extractVar();
+          processToken<VAR>(s);
+          pos = originIndex;
+          return VAR;
+      } else {
+          _tokenValue = NONE;
+          pos = originIndex;
+          return extractChar();
       }
   }
 
@@ -60,7 +92,7 @@ public:
 
   string extractAtom() {
     int posBegin = position();
-    for (;isalnum(buffer[pos]); ++pos);
+    for (;isalnum(buffer[pos])|| buffer[pos] == '_'; ++pos);
     return buffer.substr(posBegin, pos-posBegin);
   }
 

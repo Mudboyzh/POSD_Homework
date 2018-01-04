@@ -11,6 +11,8 @@
         "map": "cpp",
         "set": "cpp",
         "string": "cpp",
-        "vector": "cpp"
+        "vector": "cpp",
+        "__locale": "cpp",
+        "cctype": "cpp"
     }
 }
