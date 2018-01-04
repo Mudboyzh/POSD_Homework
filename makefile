@@ -1,6 +1,6 @@
 all: hw8 shell
 
-hw8: mainExp.o atom.o struct.o list.o parser.h scanner.h exp.h 
+hw8: mainExp.o atom.o struct.o list.o parser.h scanner.h exp.h  number.h
 ifeq (${OS}, Windows_NT)
 	g++ -o hw8 mainExp.o struct.o list.o atom.o -lgtest
 else
@@ -19,17 +19,17 @@ shell.o:  shell.cpp atom.h list.h scanner.h parser.h global.h \
 		  struct.o list.o atom.o
 	g++ -std=gnu++0x -c shell.cpp
 
-mainExp.o: mainExp.cpp atom.h list.h scanner.h parser.h global.h \
-		   variable.h struct.h iterator.h exception.h expression.h \
+mainExp.o: mainExp.cpp atom.h list.h scanner.h parser.h global.h node.h\
+		   variable.h struct.h iterator.h exception.h expression.h  number.h\
 		   struct.o list.o atom.o
 	g++ -std=gnu++0x -c mainExp.cpp
 
-atom.o: atom.cpp atom.h variable.h
+atom.o: atom.cpp atom.h variable.h 
 	g++ -std=gnu++0x -c atom.cpp
 
-list.o: list.cpp list.h
+list.o: list.cpp list.h number.h atom.o
 		g++ -std=gnu++0x -c list.cpp
-struct.o:struct.cpp struct.h atom.o
+struct.o:struct.cpp struct.h atom.o number.h
 		 g++ -std=gnu++0x -c struct.cpp
 
 # exp: mainExp.o

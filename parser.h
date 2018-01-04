@@ -11,6 +11,7 @@ using std::string;
 #include "struct.h"
 #include "list.h"
 #include "exp.h"
+#include "number.h"
 #include <stack>
 #include <vector>
 
