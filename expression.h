@@ -272,7 +272,7 @@ TEST(Shell, disjunctionMatching5) {
   try {
     p.buildExpression();
     std::string result = p.result();
-    ASSERT_EQ("X = 1; Y = 2.", result);
+    ASSERT_EQ("X = 1; true; Y = 2.", result);
   } catch (std::string &msg) {
     FAIL() << msg;
   }
