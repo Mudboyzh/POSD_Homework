@@ -18,7 +18,7 @@ atom.o: atom.cpp atom.h variable.h
 
 list.o:list.cpp list.h
 		g++ -std=gnu++0x -c list.cpp
-struct.o:struct.cpp struct.h
+struct.o:struct.cpp struct.h iterator.h
 		g++ -std=gnu++0x -c struct.cpp
 
 # exp: mainExp.o
